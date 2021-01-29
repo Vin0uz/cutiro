@@ -15,3 +15,6 @@ ActiveStorage.start()
 import "controllers"
 
 import "tailwindcss/tailwind.css"
+import '../css/application.css';
+
+const images = require.context('../images', true)
