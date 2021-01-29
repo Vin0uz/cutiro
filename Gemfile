@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.6.4"
 
+gem "aws-sdk-s3", require: false
 gem "rails", "~> 6.1.1"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
@@ -31,6 +32,7 @@ group :test do
 end
 
 group :test, :development do
+  gem "dotenv-rails"
   gem "rspec-rails"
 end
 
