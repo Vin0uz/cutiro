@@ -1,7 +1,19 @@
 class CleaningsController < ApplicationController
-  def new; end
+  def new
+    @cleaning = Cleaning.new
+  end
 
   def create
-    redirect_to root_path
+    cleaning = Cleaning.create(cleaning_params)
+    if cleaning.persisted?
+      redirect_to root_path
+    else
+      raise "Problem in the creation"
+    end
+  end
+
+  private
+  def cleaning_params
+    params.require(:cleaning).permit(:email, :payrolls, :teachers)
   end
 end
