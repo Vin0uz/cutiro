@@ -34,6 +34,7 @@ end
 group :test, :development do
   gem "dotenv-rails"
   gem "rspec-rails"
+  gem "shoulda-matchers"
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
