@@ -11,9 +11,9 @@ feature "Anyone goes to the new cleaning page" do
   scenario "and can fill the cleaning form" do
     visit new_cleaning_path
 
-    attach_file("teachers", File.join(Rails.root, "/spec/fixtures/teachers.csv"))
-    attach_file("payrolls", File.join(Rails.root, "/spec/fixtures/payrolls.csv"))
-
+    attach_file(:cleaning_teachers, File.join(Rails.root, "/spec/fixtures/teachers.csv"))
+    attach_file(:cleaning_payrolls, File.join(Rails.root, "/spec/fixtures/payrolls.csv"))
+    fill_in :cleaning_email, with: "admin@example.com"
     click_on "Send"
 
     expect(page).to have_current_path(root_path)

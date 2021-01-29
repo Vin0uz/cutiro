@@ -40,18 +40,25 @@
         Upload your teachers and payroll databases below
       </p>
 
-      <%= form_with(url: cleaning_path, method: :post) do |form| %>
+      <%= form_with(model: @cleaning, url: cleaning_path, method: :post, local: true) do |form| %>
         <div class="mb-4 text-center">
           <div class="form-field mt-4">
             <%= form.label :teachers, "Teachers Database File", class: "text-l text-white font-bold" %>
-            <%= form.file_field :teachers%>
+            <%= form.file_field :teachers, required: true %>
           </div>
 
           <div class="form-field mt-8">
             <%= form.label :payrolls, "Payrolls Database File", class: "text-l text-white font-bold" %>
-            <%= form.file_field :payrolls %>
+            <%= form.file_field :payrolls, required: true %>
           </div>
 
+          <div class="form-field mt-8">
+            <%= form.text_field(:email,
+              placeholder: "you@organization.com",
+              class: "shadow appearance-none border rounded w-2/3 p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out",
+              required: true,
+            )%>
+          </div>
           <div class="mt-8">
             <%= form.submit("Send",
               class: "submitBtn"
