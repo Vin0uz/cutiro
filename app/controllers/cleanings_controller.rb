@@ -7,9 +7,16 @@ class CleaningsController < ApplicationController
     cleaning = Cleaning.create(cleaning_params)
     if cleaning.persisted?
       DestroyFilesJob.set(wait: 30.minutes).perform_later(cleaning: cleaning)
-      redirect_to root_path
+
+      response = MatcherApi.new.call(email: cleaning.email, payrolls_url: url_for(cleaning.payrolls), teachers_url: url_for(cleaning.teachers))
+
+      if response.code == "200"
+        redirect_to root_path(success: true)
+      else
+        redirect_to root_path(error: response.code)
+      end
     else
-      raise "Problem in the creation"
+      redirect_to root_path(error: "creation")
     end
   end
 
