@@ -9,6 +9,8 @@ describe CleaningsController do
     end
 
     it "should enqueue DestroyFilesJob" do
+      stub_request(:get, ENV.fetch("CUTIRO_API_URL"))
+
       post(:create, params: {
         cleaning: {
           teachers: fixture_file_upload(File.join(Rails.root, "/spec/fixtures/teachers.csv")),
@@ -26,14 +28,13 @@ describe CleaningsController do
     end
 
     it "should not enqueue DestroyFilesJob if files are not given" do
-      expect {
-        post(:create, params: {
-          cleaning: {
-            email: "test@example.com",
-          },
-        })
-      }.to raise_error("Problem in the creation")
+      post(:create, params: {
+        cleaning: {
+          email: "test@example.com",
+        },
+      })
 
+      expect(response).to redirect_to(root_path(error: "creation"))
       expect(Cleaning.count).to eq(0)
       expect(DestroyFilesJob).not_to have_been_enqueued
     end
