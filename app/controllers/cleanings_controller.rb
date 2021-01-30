@@ -6,6 +6,7 @@ class CleaningsController < ApplicationController
   def create
     cleaning = Cleaning.create(cleaning_params)
     if cleaning.persisted?
+      DestroyFilesJob.set(wait: 30.minutes).perform_later(cleaning: cleaning)
       redirect_to root_path
     else
       raise "Problem in the creation"
