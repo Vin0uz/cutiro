@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe DestroyFilesJob do
   it "purges the attached files" do
-    cleaning = FactoryBot.create(:cleaning,
+    cleaning = create(:cleaning,
       teachers: Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/teachers.csv"),
       payrolls: Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/payrolls.csv"),
       email: "test@example.com",
