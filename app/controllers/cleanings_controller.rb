@@ -13,7 +13,7 @@ class CleaningsController < ApplicationController
       DestroyFilesJob.set(wait: 30.minutes).perform_later(cleaning: cleaning)
       session[:cleaning_id] = cleaning.id
 
-      response = MatcherApi.new.call(email: cleaning.email, payrolls_url: url_for(cleaning.payrolls), teachers_url: url_for(cleaning.teachers))
+      response = MatcherApi.new.call(params: matcher_api_params(cleaning))
       if response.code == "200"
         redirect_to cleaning_path
       else
@@ -40,5 +40,14 @@ class CleaningsController < ApplicationController
 
   def cleaning_update_params
     params.require(:cleaning).permit(:id, :result_url)
+  end
+
+  def matcher_api_params(cleaning)
+    {
+      email: cleaning.email,
+      payrolls_url: url_for(cleaning.payrolls),
+      teachers_url: url_for(cleaning.teachers),
+      batch_id: cleaning.id,
+    }
   end
 end
