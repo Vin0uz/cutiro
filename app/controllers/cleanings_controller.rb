@@ -14,7 +14,7 @@ class CleaningsController < ApplicationController
       session[:cleaning_id] = cleaning.id
 
       response = MatcherApi.new.call(params: matcher_api_params(cleaning))
-      if response.code == "200"
+      if response.code == 200
         redirect_to cleaning_path
       else
         redirect_to root_path(error: response.code)
