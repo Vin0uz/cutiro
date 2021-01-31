@@ -1,4 +1,9 @@
 class CleaningsController < ApplicationController
+
+  def show
+    @cleaning = session[:cleaning_id]
+  end
+
   def new
     @cleaning = Cleaning.new
   end
@@ -7,6 +12,7 @@ class CleaningsController < ApplicationController
     cleaning = Cleaning.create(cleaning_params)
     if cleaning.persisted?
       DestroyFilesJob.set(wait: 30.minutes).perform_later(cleaning: cleaning)
+      session[:cleaning_id] = cleaning.id
 
       response = MatcherApi.new.call(email: cleaning.email, payrolls_url: url_for(cleaning.payrolls), teachers_url: url_for(cleaning.teachers))
 
