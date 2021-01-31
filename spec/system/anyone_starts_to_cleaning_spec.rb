@@ -18,6 +18,6 @@ feature "Anyone goes to the new cleaning page" do
     fill_in :cleaning_email, with: "admin@example.com"
     click_on "Send"
 
-    expect(page).to have_current_path(root_path(success: true))
+    expect(page).to have_current_path(cleaning_path)
   end
 end
