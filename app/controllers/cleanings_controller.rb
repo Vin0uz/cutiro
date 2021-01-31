@@ -24,9 +24,9 @@ class CleaningsController < ApplicationController
     end
   end
 
-  def update
-    cleaning = Cleaning.find(cleaning_update_params[:id])
-    if cleaning.update(result_url: cleaning_update_params[:result_url])
+  def refresh
+    cleaning = Cleaning.find(params[:id])
+    if cleaning.update(result_url: params[:result_url])
       render status: 200
     else
       render status: 500
@@ -36,10 +36,6 @@ class CleaningsController < ApplicationController
   private
   def cleaning_params
     params.require(:cleaning).permit(:email, :payrolls, :teachers)
-  end
-
-  def cleaning_update_params
-    params.require(:cleaning).permit(:id, :result_url)
   end
 
   def matcher_api_params(cleaning)
