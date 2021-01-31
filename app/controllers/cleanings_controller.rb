@@ -45,8 +45,8 @@ class CleaningsController < ApplicationController
   def matcher_api_params(cleaning)
     {
       email: cleaning.email,
-      payrolls_url: url_for(cleaning.payrolls),
-      teachers_url: url_for(cleaning.teachers),
+      source_payrolls: url_for(cleaning.payrolls),
+      source_teachers: url_for(cleaning.teachers),
       batch_id: cleaning.id,
     }
   end
