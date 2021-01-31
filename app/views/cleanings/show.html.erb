@@ -31,41 +31,21 @@
     <!--Left Col-->
     <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
       <h1 class="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
-        Let's
+        Data is being
         <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
-          Go
+          Processed
         </span>
       </h1>
       <p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
-        Upload your teachers and payroll databases below
+        The link below will unlock when finished.
       </p>
 
-      <%= form_with(model: @cleaning, url: cleaning_path, method: :post, local: true) do |form| %>
-        <div class="mb-4 text-center">
-          <div class="form-field mt-4">
-            <%= form.label :teachers, "Teachers Database File", class: "text-l text-white font-bold" %>
-            <%= form.file_field :teachers, required: true %>
-          </div>
-
-          <div class="form-field mt-8">
-            <%= form.label :payrolls, "Payrolls Database File", class: "text-l text-white font-bold" %>
-            <%= form.file_field :payrolls, required: true %>
-          </div>
-
-          <div class="form-field mt-8">
-            <%= form.text_field(:email,
-              placeholder: "you@organization.com",
-              class: "shadow appearance-none border rounded w-2/3 p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out",
-              required: true,
-            )%>
-          </div>
-          <div class="mt-8">
-            <%= form.submit("Send",
-              class: "submitBtn"
-            )%>
-          </div>
-        </div>
-      <% end %>
+      <div class="flex items-center justify-between pt-4 m-auto">
+        <%= link_to "Download result",
+          @cleaning.result_url,
+          class: "submitBtn"
+        %>
+      </div>
     </div>
 
     <!--Right Col-->

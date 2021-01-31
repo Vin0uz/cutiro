@@ -1,7 +1,6 @@
 class CleaningsController < ApplicationController
-
   def show
-    @cleaning = session[:cleaning_id]
+    @cleaning = Cleaning.find(session[:cleaning_id] || 3)
   end
 
   def new
@@ -15,9 +14,8 @@ class CleaningsController < ApplicationController
       session[:cleaning_id] = cleaning.id
 
       response = MatcherApi.new.call(email: cleaning.email, payrolls_url: url_for(cleaning.payrolls), teachers_url: url_for(cleaning.teachers))
-
       if response.code == "200"
-        redirect_to root_path(success: true)
+        redirect_to cleaning_path
       else
         redirect_to root_path(error: response.code)
       end
@@ -26,8 +24,21 @@ class CleaningsController < ApplicationController
     end
   end
 
+  def update
+    cleaning = Cleaning.find(cleaning_update_params[:id])
+    if cleaning.update(result_url: cleaning_update_params[:result_url])
+      render status: 200
+    else
+      render status: 500
+    end
+  end
+
   private
   def cleaning_params
     params.require(:cleaning).permit(:email, :payrolls, :teachers)
+  end
+
+  def cleaning_update_params
+    params.require(:cleaning).permit(:id, :result_url)
   end
 end
