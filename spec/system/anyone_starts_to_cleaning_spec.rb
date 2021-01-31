@@ -10,7 +10,7 @@ feature "Anyone goes to the new cleaning page" do
 
   scenario "and can fill the cleaning form" do
     visit new_cleaning_path
-    stub_request(:get, ENV.fetch("CUTIRO_API_URL"))
+    stub_request(:post, ENV.fetch("CUTIRO_API_URL"))
 
 
     attach_file(:cleaning_teachers, File.join(Rails.root, "/spec/fixtures/teachers.csv"))

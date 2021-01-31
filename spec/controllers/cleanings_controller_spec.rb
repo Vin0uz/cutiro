@@ -9,7 +9,7 @@ describe CleaningsController do
     end
 
     it "should enqueue DestroyFilesJob" do
-      stub_request(:get, ENV.fetch("CUTIRO_API_URL"))
+      stub_request(:post, ENV.fetch("CUTIRO_API_URL"))
 
       post(:create, params: {
         cleaning: {
