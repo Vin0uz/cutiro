@@ -1,3 +1,5 @@
+<%= turbo_stream_from :cleaning %>
+
 <div class="h-full">
   <!--Nav-->
   <div class="w-full container mx-auto">
@@ -40,12 +42,7 @@
         The link below will unlock when finished.
       </p>
 
-      <div class="flex items-center justify-between pt-4 m-auto">
-        <%= link_to "Download result",
-          @cleaning.result_url,
-          class: "submitBtn"
-        %>
-      </div>
+      <%= render @cleaning %>
     </div>
 
     <!--Right Col-->

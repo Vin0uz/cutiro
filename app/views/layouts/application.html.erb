@@ -8,8 +8,10 @@
 
     <%= stylesheet_pack_tag "application", media: "all", "data-turbolinks-track": "reload" %>
     <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
+    <%= yield :head %>
+    <%= turbo_include_tags %>
 
-     <style>
+    <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
       html {

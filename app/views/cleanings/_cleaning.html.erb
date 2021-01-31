@@ -1,0 +1,13 @@
+<div id="<%= dom_id cleaning %>" class="flex items-center justify-between pt-4 m-auto">
+  <% if cleaning.result_url.present? %>
+    <%= link_to "Download result",
+      cleaning.result_url,
+      class: "submitBtn"
+    %>
+  <% else %>
+    <%= link_to "Please wait",
+      "#",
+      class: "submitBtn"
+    %>
+  <% end %>
+</div>
