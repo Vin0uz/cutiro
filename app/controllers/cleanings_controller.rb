@@ -27,9 +27,9 @@ class CleaningsController < ApplicationController
   def refresh
     cleaning = Cleaning.find(params[:id])
     if cleaning.update(result_url: params[:result_url])
-      render status: 200
+      render status: 200, json: {}
     else
-      render status: 500
+      render status: 500, json: {}
     end
   end
 
